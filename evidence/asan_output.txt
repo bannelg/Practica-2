@@ -1,0 +1,55 @@
+--- 1. Objetos LinearRegression en memoria global, local y dinámica ---
+  global (g_globalModel)             dirección = 0x55c6e07a7ec0   sizeof = 104 bytes
+  global estática (g_staticModel)    dirección = 0x55c6e07a7e20   sizeof = 104 bytes
+  local (localModel)                 dirección = 0x7fa1dd9000c0   sizeof = 104 bytes
+  dinámica (*heapModel)              dirección = 0x50b000000040   sizeof = 104 bytes
+  puntero heapModel (variable)       dirección = 0x7fa1dd900040   sizeof = 8 bytes
+
+--- 2. Desglose del tamaño (atributos, offsets y relleno) ---
+  sizeof(LinearRegression) = 104 bytes
+  offset   0 | weights_       std::vector<double> (24 B)
+  offset  24 | bias_          double (8 B)
+  offset  32 | mean_          std::vector<double> (24 B)
+  offset  56 | std_           std::vector<double> (24 B)
+  offset  80 | learningRate_  double (8 B)
+  offset  88 | epochs_        int (4 B)
+  offset  92 | solver_        enum class (int) (4 B)
+  offset  96 | scaling_       bool (1 B)
+  offset  97 | fitted_        bool (1 B)
+  suma de miembros = 98 bytes; sizeof = 104 -> 6 bytes de padding (alineación a 8)
+
+--- 3. Regiones de memoria (de direcciones bajas a altas, típico en Linux x86-64) ---
+  código (función codeAnchor)      dirección = 0x55c6e06b83a0   sizeof = 0 bytes
+  .data (g_initializedInt)         dirección = 0x55c6e078de20   sizeof = 4 bytes
+  .bss  (g_globalModel)            dirección = 0x55c6e07a7ec0   sizeof = 104 bytes
+  heap  (*heapModel)               dirección = 0x50b000000040   sizeof = 104 bytes
+  stack (localModel)               dirección = 0x7fa1dd9000c0   sizeof = 104 bytes
+
+--- 4. El objeto mide siempre lo mismo, pero sus datos viven en el heap ---
+  sizeof(global) = 104 | sizeof(local) = 104 | sizeof(heap) = 104 (no cambia al entrenar)
+  buffer de weights_ del global: 0x502000000230 (heap)
+  buffer de weights_ del local : 0x502000000470 (heap)
+  buffer de weights_ del heap  : 0x5020000006b0 (heap)
+  weights_.size() = 2 -> 16 bytes de datos en heap por vector
+
+--- 5. Vector (arreglo) de LinearRegression en memoria dinámica ---
+  new LinearRegression[5] -> dirección base = 0x516000000088
+  sizeof(*arr) = 104 ; N * sizeof = 520 bytes (tamaño total de los elementos)
+  sizeof(arr) = 8  <- tamaño del PUNTERO, no del arreglo
+  sizeof(stackArray) = 520  <- en pila, el compilador sí conoce el tamaño total
+    arr[0] en 0x516000000088
+    arr[1] en 0x5160000000f0
+    arr[2] en 0x516000000158
+    arr[3] en 0x5160000001c0
+    arr[4] en 0x516000000228
+  cookie de new[] (N guardado por la ABI) = 5 en 0x516000000080
+  solicitado a malloc = 8 + 520 = 528 bytes ; malloc_usable_size = 528 bytes
+
+--- 6. std::vector<LinearRegression> (contenedor estándar) ---
+  sizeof(std::vector<LinearRegression>) = 24 bytes (3 punteros: begin, end, end_of_storage)
+  size = 5, capacity = 5, bytes en heap = capacity * 104 = 520
+  vec.data() = 0x516000000380 (contiguo)
+
+--- 7. Liberación correcta ---
+  make_unique<LinearRegression>      dirección = 0x50b0000000f0   sizeof = 104 bytes
+  (vec y smart se liberan automáticamente al salir de main)

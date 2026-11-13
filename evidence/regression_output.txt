@@ -1,0 +1,116 @@
+
+-----------------------------------------------------
+REGRESION LINEAL SIMPLE  (data/Ice_cream_selling_data.csv)
+-----------------------------------------------------
+Filas: 49  |  Características: 1  |  Objetivo: Ice Cream Sales (units)
+Entrenamiento: 39 filas  |  Prueba: 10 filas
+
+--- Ecuación normal + data_scaling ---
+weights (espacio de entrenamiento): [-2.570307]
+bias (espacio de entrenamiento): 16.363510
+weights (unidades originales):      [-0.946577]
+bias (unidades originales):      16.337580
+   i        y_test         y_hat
+   0      8.170735     14.373338
+   1     18.123991     18.503597
+   2      0.789974     15.509415
+   3     12.568237     13.657102
+   4     26.104740     13.179864
+   5     15.996620     13.701519
+   6     28.912188     12.919702
+   7     19.226970     18.867269
+   8     10.336631     13.997694
+   9      0.953115     15.050413
+score (train): MSE=156.698798  RMSE=12.517939  MAE=11.157601  R2=0.040455
+score (test):  MSE=89.681009  RMSE=9.470006  MAE=7.172104  R2=-0.105467
+
+--- Descenso del gradiente + data_scaling (lr=0.05, 5000 epochs) ---
+weights (espacio de entrenamiento): [-2.570307]
+bias (espacio de entrenamiento): 16.363510
+weights (unidades originales):      [-0.946577]
+bias (unidades originales):      16.337580
+score (train): MSE=156.698798  RMSE=12.517939  MAE=11.157601  R2=0.040455
+score (test):  MSE=89.681009  RMSE=9.470006  MAE=7.172104  R2=-0.105467
+
+--- Verificación: ecuación normal con el 100% de los datos ---
+weights (unidades originales): [-0.796457]
+bias (unidades originales):   16.1217493920
+
+-----------------------------------------------------
+REGRESION LINEAL MULTIPLE  (data/student_exam_scores.csv)
+-----------------------------------------------------
+Filas: 200  |  Características: 4  |  Objetivo: exam_score
+Entrenamiento: 160 filas  |  Prueba: 40 filas
+
+--- Ecuación normal + data_scaling ---
+weights (espacio de entrenamiento): [5.082037, 1.386166, 1.516780, 2.786765]
+bias (espacio de entrenamiento): 34.261875
+weights (unidades originales):      [1.562452, 0.926116, 0.106409, 0.176717]
+bias (unidades originales):      -1.706111
+   i        y_test         y_hat
+   0     30.600000     28.513029
+   1     29.000000     26.004448
+   2     31.100000     31.335687
+   3     42.000000     45.580598
+   4     21.200000     21.985555
+   5     17.100000     22.296375
+   6     23.900000     24.422217
+   7     34.400000     30.876563
+   8     39.200000     39.907359
+   9     44.100000     45.478279
+  10     39.800000     40.505463
+  11     31.000000     33.921189
+  12     25.200000     25.992005
+  13     32.000000     34.078156
+  14     39.900000     42.076299
+  15     34.000000     36.814744
+  16     46.400000     43.862304
+  17     37.100000     36.786204
+  18     38.400000     37.980838
+  19     30.600000     34.280106
+  20     33.500000     30.174864
+  21     29.100000     28.211859
+  22     33.000000     29.960649
+  23     31.400000     33.823342
+  24     26.900000     25.670740
+  25     43.300000     39.954750
+  26     29.500000     31.195001
+  27     42.700000     45.077531
+  28     32.600000     36.333135
+  29     26.500000     29.512862
+  30     39.800000     39.355361
+  31     30.300000     29.555801
+  32     27.100000     29.655396
+  33     26.100000     26.562482
+  34     28.800000     30.559469
+  35     31.600000     30.916432
+  36     33.500000     33.086683
+  37     40.400000     40.350015
+  38     37.000000     37.447618
+  39     19.000000     23.445612
+score (train): MSE=7.750164  RMSE=2.783912  MAE=2.380843  R2=0.828529
+score (test):  MSE=5.454934  RMSE=2.335580  MAE=1.913149  R2=0.883097
+
+--- Descenso del gradiente + data_scaling (lr=0.05, 5000 epochs) ---
+weights (espacio de entrenamiento): [5.082037, 1.386166, 1.516780, 2.786765]
+bias (espacio de entrenamiento): 34.261875
+weights (unidades originales):      [1.562452, 0.926116, 0.106409, 0.176717]
+bias (unidades originales):      -1.706111
+score (train): MSE=7.750164  RMSE=2.783912  MAE=2.380843  R2=0.828529
+score (test):  MSE=5.454934  RMSE=2.335580  MAE=1.913149  R2=0.883097
+
+--- Verificación: ecuación normal con el 100% de los datos ---
+weights (unidades originales): [1.555260, 0.952258, 0.108390, 0.177285]
+bias (unidades originales):   -2.1420867991
+
+--------------------------------------------------
+EXTRA: helados con características [x, x^2] (regresión múltiple sobre datos no lineales)
+--------------------------------------------------
+
+--- Ecuación normal + data_scaling con [x, x^2] ---
+weights (espacio de entrenamiento): [-2.309952, 12.130528]
+bias (espacio de entrenamiento): 16.363510
+weights (unidades originales):      [-0.850695, 1.780899]
+bias (unidades originales):      3.207867
+score (train): MSE=9.616883  RMSE=3.101110  MAE=2.627248  R2=0.941111
+score (test):  MSE=12.044962  RMSE=3.470585  MAE=3.002078  R2=0.851526

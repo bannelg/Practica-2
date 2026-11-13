@@ -1,0 +1,47 @@
+--- Objetos globales, locales y dinamicos ---
+  Objeto global                direccion: 0x55e969db3360   sizeof: 104 bytes
+  Objeto global estatico       direccion: 0x55e969db33e0   sizeof: 104 bytes
+  Objeto local                 direccion: 0x7fffa781b900   sizeof: 104 bytes
+  Objeto dinamico              direccion: 0x55e9893e32c0   sizeof: 104 bytes
+  Variable puntero             direccion: 0x7fffa781b8d8   sizeof: 8 bytes
+
+--- Por que el objeto tiene ese tamano ---
+  sizeof(LinearRegression) = 104 bytes
+  offset   0 | weights_       vector<double> (24 B)
+  offset  24 | bias_          double (8 B)
+  offset  32 | mean_          vector<double> (24 B)
+  offset  56 | std_           vector<double> (24 B)
+  offset  80 | learningRate_  double (8 B)
+  offset  88 | epochs_        int (4 B)
+  offset  92 | solver_        enum (4 B)
+  offset  96 | scaling_       bool (1 B)
+  offset  97 | fitted_        bool (1 B)
+  Suma de atributos: 98 bytes
+  Tamano total: 104 bytes (incluye 6 bytes de relleno/alineacion)
+  El numero de bytes puede variar entre computadores y compiladores.
+
+--- Los pesos se guardan aparte del objeto ---
+  sizeof despues de entrenar: 104 bytes
+  Datos de los pesos: 2 elementos x 8 bytes = 16 bytes
+  Direccion de pesos           direccion: 0x55e9893e3660   sizeof: 16 bytes
+
+--- Arreglo dinamico de cinco objetos ---
+  Direccion del arreglo: 0x55e9893e39c8
+  Tamano de cada objeto: 104 bytes
+  Tamano de los cinco objetos: 520 bytes
+  Tamano de arr (puntero): 8 bytes
+  arr[0]: 0x55e9893e39c8
+  arr[1]: 0x55e9893e3a30
+  arr[2]: 0x55e9893e3a98
+  arr[3]: 0x55e9893e3b00
+  arr[4]: 0x55e9893e3b68
+  El gestor de memoria puede reservar bytes adicionales, pero ese dato no es fijo.
+
+--- Vector con elementos en memoria dinamica ---
+  sizeof(vector): 24 bytes (estructura del vector)
+  size: 5; capacity: 5
+  Espacio reservado para elementos: 520 bytes
+  Direccion de los elementos: 0x55e9893e3be0
+  El vector libera sus datos automaticamente al salir de main.
+
+Memoria de new y new[] liberada con delete y delete[].
